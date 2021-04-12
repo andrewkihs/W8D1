@@ -10,6 +10,31 @@
   </head>
 
   <body>
+  <% if current_user %>
+		Logged in as: <%= current_user.username %> 
+		<a href="<%= new_sub_url %>">Create a sub</a>
+    <a href="<%= subs_url %>">All Subs</a>
+		
+<% if logged_in? %>
+  <form action="<%= session_url%>" method="post">
+    <input
+      type="hidden"
+      name="_method"
+      value="delete">
+    <input 
+      type="hidden"
+      name="authenticity_token"
+      value="<%= form_authenticity_token %>">
+      <button type="submit">Sign Out</button>
+  </form>
+<% else %> 
+  	<a href="<%= new_session_url %>">Sign In</a>
+<% end %>
+    <p> logged_in </p>
+  <% end %>
+  <% if flash[:errors] %>
+    <p><%=flash[:errors].join(", ")%></p>
+  <% end %>
     <%= yield %>
   </body>
 </html>

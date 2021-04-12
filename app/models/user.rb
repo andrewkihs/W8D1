@@ -6,12 +6,16 @@ class User < ApplicationRecord
     attr_reader :password
 
     has_many :subs,
-    foreign_key: :moderator,
+    foreign_key: :moderator_id,
     class_name: :Sub
 
     has_many :posts,
     foreign_key: :author_id,
     class_name: :Post
+
+    has_many :post_subs,
+    foreign_key: :post_id,
+    class_name: :PostSub
     
     def self.find_by_credentials(username, password)
         user = User.find_by(username: username)
@@ -32,7 +36,7 @@ class User < ApplicationRecord
     end
 
     def password=(password)
-        self.password_digest = BCrypt::Password.create(password)
+        self.password_digest=BCrypt::Password.create(password)
         @password = password
     end
 

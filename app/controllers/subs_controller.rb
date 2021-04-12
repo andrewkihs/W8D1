@@ -2,8 +2,9 @@ class SubsController < ApplicationController
     before_action :require_logged_in, only: [:create, :edit, :update]
 
     def create
-        @sub = Sub.new(sub_params)
-        @sub.moderator = params[:user_id]
+        debugger
+        @sub = current_user.subs.new(sub_params)
+        # @sub.moderator = params[:user_id]
         if @sub.save
             redirect_to sub_url(@sub)
         else

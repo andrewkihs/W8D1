@@ -51,11 +51,12 @@ class PostsController < ApplicationController
     end
 
     def post_params
-        params.require(:post).permit(:url, :title, :content, :user_id, :sub_id)
+        params.require(:post).permit(:url, :title, :content, :user_id, :sub_ids[])
     end
 
     def require_user_owns_post!
-    return if current_user.posts.find_by(id: params[:id])
-    render json: 'Forbidden', status: :forbidden
-  end
+        return if current_user.posts.find_by(id: params[:id])
+        render json: 'Forbidden', status: :forbidden
+        end
+    end
 end
