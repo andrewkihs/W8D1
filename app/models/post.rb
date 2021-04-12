@@ -9,7 +9,6 @@ class Post < ApplicationRecord
     foreign_key: :sub_id,
     class_name: :Sub
 
-    before_action :require_logged_in, only: [:create, :edit]
 
     
 end
